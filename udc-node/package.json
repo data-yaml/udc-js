@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npx tsc",
     "clean": "rm -rf dist",
-    "test": "npm run build && mocha --require ts-node/register test/**/*.*ts",
+    "ci-test": "npm ci && npm run build && npm run test",
+    "test": "mocha --require ts-node/register test/**/*.*ts",
     "start": "npm run build && node dist/src/index.js",
     "test-log": "NODE_DEBUG=* mocha --require ts-node/register test/**/*.*ts",
     "age": "ts-node src/index.ts age",
@@ -22,7 +23,7 @@
   "type": "module",
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@types/chai": "^4.3.6",
     "@types/mocha": "^10.0.1",
