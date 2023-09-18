@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.11"
 click = "^8.1.7"
 py-agify = "^0.0.1"
+pytest = "^7.4.2"
+black = "^23.9.1"
 
 
 [build-system]

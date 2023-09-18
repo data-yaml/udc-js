@@ -41,6 +41,10 @@ jobs:
         poetry --version
         poetry install
       working-directory: ./udc-py
+    - name: Lint with black
+      run: |
+        poetry run black .
+      working-directory: ./udc-py
     - name: Test with pytest
       run: |
         TEST_OS=${{ matrix.os }} poetry run pytest
