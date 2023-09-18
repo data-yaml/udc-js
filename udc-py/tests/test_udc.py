@@ -9,6 +9,7 @@ def test_hello_world():
     assert result.exit_code == 0
     assert result.output == "Hello Peter!\n"
 
+
 def test_agify_gender():
     client = GenderizeClient()
     gender = client.get_gender("Allen")
