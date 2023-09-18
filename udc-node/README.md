@@ -1,4 +1,4 @@
-# ts-cli
+# udc-node
 Demo project to create/test CLIs written using TypeScript
 
 It is surprisingly difficult to find a currently-working example of how
@@ -22,13 +22,13 @@ Other changes include:
 ## Usage
 
 ```bash
-$ npm run ts-cli-install
-$ ts-cli hello
+$ npm run udc-node-install
+$ udc-node hello
 Hello, World!
-$ ts-cli hello Universe!
+$ udc-node hello Universe!
 Hello, Universe!!
-$ ts-cli calc -o multiply 10 16 # or: add | divide
+$ udc-node calc -o multiply 10 16 # or: add | divide
 160
-$ ts-cli age Ernie # Use axios to call the agify API 
+$ udc-node age Ernie # Use axios to call the agify API 
 Ernie - 74
 ```

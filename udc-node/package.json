@@ -1,7 +1,7 @@
 {
-  "name": "ts-cli",
+  "name": "udc-node",
   "version": "1.1.0",
-  "description": "Show how to use EcmaScript Modules (ESM) for a TypeScript CLI",
+  "description": "Node version of Universal Data Client",
   "exports": "./index.js",
   "scripts": {
     "build": "npx tsc",
@@ -12,12 +12,12 @@
     "age": "ts-node src/index.ts age",
     "calc": "ts-node src/index.ts calc -o",
     "hello": "ts-node src/index.ts hello",
-    "ts-cli-install": "npm run build && npm install -g",
-    "ts-cli-uninstall": "npm uninstall -g ts-cli",
-    "ts-cli-check": "ts-cli hello Globally Installed CLI in TypeScript"
+    "udc-node-install": "npm run build && npm install -g",
+    "udc-node-uninstall": "npm uninstall -g udc-node",
+    "udc-node-check": "udc-node hello Universal Data Client (node edition)"
   },
   "bin": {
-    "ts-cli": "./dist/src/index.js"
+    "udc-node": "./dist/src/index.js"
   },
   "type": "module",
   "keywords": [],
