@@ -8,7 +8,7 @@ const exec = (command: string) => {
 };
 
 const run = (args: string) => {
-    return exec(`ts-cli ${args}`);
+    return exec(`npx ts-cli ${args}`);
 };
 
 before(() => {
