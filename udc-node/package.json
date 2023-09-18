@@ -6,16 +6,15 @@
   "scripts": {
     "build": "npx tsc",
     "clean": "rm -rf dist",
-    "ci-test": "npm ci && npm run build && npm run test",
-    "test": "mocha --require ts-node/register test/**/*.*ts",
+    "test": "npm run build && mocha --require ts-node/register test/**/*.*ts",
     "start": "npm run build && node dist/src/index.js",
-    "test-log": "NODE_DEBUG=* mocha --require ts-node/register test/**/*.*ts",
-    "age": "ts-node src/index.ts age",
-    "calc": "ts-node src/index.ts calc -o",
-    "hello": "ts-node src/index.ts hello",
+    "test-log": "NODE_DEBUG=* npm test",
+    "age": "npx ts-node dist/src/index.js age",
+    "calc": "npx ts-node dist/src/index.js calc -o",
+    "hello": "npx ts-node dist/src/index.js hello",
     "udc-node-install": "npm run build && npm install -g",
     "udc-node-uninstall": "npm uninstall -g udc-node",
-    "udc-node-check": "udc-node hello Universal Data Client (node edition)"
+    "udc-node-check": "npx udc-node hello UDC"
   },
   "bin": {
     "udc-node": "./dist/src/index.js"
