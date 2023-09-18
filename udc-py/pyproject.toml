@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "udc-py"
+version = "0.1.0"
+description = ""
+authors = ["Ernest Prabhakar <ernest@quiltdata.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
