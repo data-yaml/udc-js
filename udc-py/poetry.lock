@@ -25,7 +25,18 @@ files = [
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
 
+[[package]]
+name = "py-agify"
+version = "0.0.1"
+description = "A python wrapper for agify, genderize, nationalize API"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "py-agify-0.0.1.tar.gz", hash = "sha256:1e5411da8024f36fea8bbcf1c187093e98d3d562fbc0bf91ab820b628693138c"},
+    {file = "py_agify-0.0.1-py3-none-any.whl", hash = "sha256:6f93b0a4c7d30f090dc744750af5bfc86c3ffbd4a0ec90df8aab2f89952c85eb"},
+]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "628b2f91879695db7c6062f64a17355697ff1237691b4f4f3105875e3b3eb929"
+content-hash = "93045e8e7677cd286d9bfd8cf533130039e6d549454920813d9128a0abcacb1c"
