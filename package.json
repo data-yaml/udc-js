@@ -29,5 +29,9 @@
     "chalk": "^4.1.0",
     "commander": "^11.0.0",
     "conf": "^10.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.8",
+    "mocha": "^10.2.0"
   }
 }
