@@ -2,7 +2,7 @@
 // Adapted from https://blog.logrocket.com/creating-a-cli-tool-with-node-js/
 
 const { program } = require('commander')
-const { list, add, markDone } = require('./actions.cjs')
+const { list, add, markDone } = require('./tasks.cjs')
 
 program
     .command('list')
