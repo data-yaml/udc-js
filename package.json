@@ -7,6 +7,7 @@
     "udc-js": "./src/index.cjs"
   },
   "scripts": {
+    "lint": "eslint --fix src/*js test/*js",
     "start": "node src/index.cjs",
     "test": "mocha"
   },
