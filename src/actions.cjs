@@ -7,7 +7,7 @@ function printName (name) {
 }
 // perform simple math operations
 function performOperation(num1, num2, options) {
-  console.debug(`num1: ${num1}, num2: ${num2}, options: ${JSON.stringify(options)}`)
+  //console.debug(`num1: ${num1}, num2: ${num2}, options: ${JSON.stringify(options)}`)
 
   var result
   switch (options.operation) {
