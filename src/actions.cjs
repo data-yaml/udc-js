@@ -4,12 +4,12 @@ const config = new Conf({
     projectName: 'udc-js',
     accessPropertiesByDotNotation: false
 });
+var todoList = config.get('todo-list')
 
 function list() {
-    const todoList = config.get('todo-list')
     if (todoList && todoList.length) {
         console.log(
-            chalk.blue.bold('Tasks in green are done. Tasks in yellow are still not done.')
+            chalk.blue.bold('Tasks in green are done. Tasks in yellow are pending.')
         )
         todoList.forEach((task, index) => {
             if (task.done) {
@@ -30,7 +30,25 @@ function list() {
 }
 
 function add(task) {
-    console.log(chalk.green.bold(`Added "${task}" to your TODO list.`))
+    //get the current todo-list
+    if (!todoList) {
+        //default value for todos-list
+        todoList = []
+    }
+
+    //push the new task to the todos-list
+    todoList.push({
+        text: task,
+        done: false
+    })
+
+    //set todos-list in conf
+    config.set('todo-list', todoList)
+
+    //display message to user
+    console.log(
+        chalk.green.bold('Task has been added successfully: ' + task)
+    )
 }
 
 module.exports = {
