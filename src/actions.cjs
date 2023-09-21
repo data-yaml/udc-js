@@ -1,12 +1,12 @@
-const chalk = require('chalk')
-const axios = require('axios')
+var chalk = require('chalk')
+var axios = require('axios')
 
 // print a greeting on the console
-const printName = function (name) {
+function printName (name) {
   console.log(chalk.bgCyanBright.blue('Hello, ' + name || 'World' + '!'))
 }
 // perform simple math operations
-const performOperation = function (num1, num2, options) {
+function performOperation (num1, num2, options) {
   let result
   switch (options.operation) {
     case 'multiply':
@@ -26,12 +26,13 @@ const performOperation = function (num1, num2, options) {
 }
 
 // call external REST API
-const getAge = function (name) {
+function getAge (name) {
   /*
-    const response = yield axios.get(`https://api.agify.io/?name=${name}`);
-    const data = yield response.data;
+    response = yield axios.get(`https://api.agify.io/?name=${name}`);
+    data = yield response.data;
     console.log(`${chalk.yellow(data["name"])} - ${chalk.yellowBright(data["age"])}`);
     */
+  console.log('Rahul - 40')
   console.log('Rahul - 40')
 }
 

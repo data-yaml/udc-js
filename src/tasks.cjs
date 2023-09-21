@@ -1,6 +1,6 @@
-const chalk = require('chalk')
-const Conf = require('conf')
-const config = new Conf({
+chalk = require('chalk')
+Conf = require('conf')
+config = new Conf({
   projectName: 'udc-js',
   accessPropertiesByDotNotation: false
 })

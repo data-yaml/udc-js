@@ -6,7 +6,7 @@
 import { getAge, performOperation, printName, } from "./utils.js";
 import { Command } from "commander";
 
-const program = new Command();
+program = new Command();
 
 program
     .command('age [name]')

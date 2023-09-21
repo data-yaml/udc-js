@@ -2,19 +2,19 @@ import axios from "axios";
 import chalk from "chalk";
 
 // call external REST API
-export const getAge = async (name: string) => {
-    const response = await axios.get(`https://api.agify.io/?name=${name}`);
-    const data = await response.data;
+export getAge = async (name: string) => {
+    response = await axios.get(`https://api.agify.io/?name=${name}`);
+    data = await response.data;
     console.log(`${chalk.yellow(data["name"])} - ${chalk.yellowBright(data["age"])}`);
 };
 
 // print a greeting on the console
-export const printName = (name: string) => {
+export printName = (name: string) => {
     console.log(chalk.bgCyanBright.blue(`Hello, ${name || "World"}!`))
 };
 
 // perform simple math operations
-export const performOperation = (
+export performOperation = (
     num1: number,
     num2: number,
     options: { operation: string }
