@@ -51,7 +51,24 @@ function add(task) {
     )
 }
 
+function markDone({tasks}) {
+    if (tasks) {
+        tasks.forEach((task) => {
+            todoList[task].done = true
+        })
+    } else {
+        todoList.forEach((task) => {
+            task.done = true
+        })
+    }
+    config.set('todo-list', todoList)
+    console.log(
+        chalk.green.bold(`Task(s) [${tasks}] marked done successfully.`)
+    )
+}  
+
 module.exports = {
     list,
-    add
+    add,
+    markDone
 }
