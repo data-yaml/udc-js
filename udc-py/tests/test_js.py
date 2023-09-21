@@ -12,11 +12,21 @@ def test_js_str():
     assert sq_py(5) == 25
 
 def test_js_run():
-    source_fn, source = js2py.run_file(SOURCE_FILE)
-    assert source.wish("Geeks") == HELLO_STR
+    source_fn, source_eval = js2py.run_file(SOURCE_FILE)
+    assert source_eval.wish("Geeks") == HELLO_STR
     assert source_fn("Geeks") == HELLO_STR
 
 def test_js_translate():
     js2py.translate_file(SOURCE_FILE, DEST_FILE)
     from tests.dest import dest
     assert dest.wish("Geeks") == HELLO_STR  # type: ignore
+
+def test_js_dist():
+    SRC = "../dist/src/utils.js"
+    source_fn, source = js2py.run_file(SRC)
+    assert source
+    print(source)
+    print('---')
+    print(source_fn)
+    assert False
+
