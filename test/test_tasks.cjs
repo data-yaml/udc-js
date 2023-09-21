@@ -1,17 +1,17 @@
-const { expect } = require('chai')
-const { it } = require('mocha')
-const childProcess = require('child_process')
+var expect = require('chai').expect
+var it = require('mocha').it
+var childProcess = require('child_process')
 
 // helper method to run command in shell
-const exec = function (command) {
+var exec = function (command) {
   return childProcess.execSync(command, { encoding: 'utf8' })
 }
 
-const run = function (args) {
+var run = function (args) {
   return exec('npx udc-js ' + args)
 }
 
 it('should talk about Tasks', function () {
-  const output = run('list')
+  var output = run('list')
   expect(output).to.contain('Tasks')
 })

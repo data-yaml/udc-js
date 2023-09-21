@@ -2,7 +2,7 @@ import axios from "axios";
 import chalk from "chalk";
 
 // call external REST API
-export getAge = async (name: string) => {
+function getAge (name: string) {
     response = await axios.get(`https://api.agify.io/?name=${name}`);
     data = await response.data;
     console.log(`${chalk.yellow(data["name"])} - ${chalk.yellowBright(data["age"])}`);
@@ -14,12 +14,12 @@ export printName = (name: string) => {
 };
 
 // perform simple math operations
-export performOperation = (
+function performOperation (
     num1: number,
     num2: number,
     options: { operation: string }
 ) => {
-    let result: number;
+    var result: number;
     switch (options.operation) {
         case "multiply":
             result = num1 * num2;

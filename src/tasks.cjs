@@ -1,10 +1,10 @@
-chalk = require('chalk')
-Conf = require('conf')
-config = new Conf({
+var chalk = require('chalk')
+var Conf = require('conf')
+var config = new Conf({
   projectName: 'udc-js',
   accessPropertiesByDotNotation: false
 })
-let todoList = config.get('todo-list')
+var todoList = config.get('todo-list')
 
 function list () {
   if (todoList && todoList.length) {
@@ -51,7 +51,7 @@ function add (task) {
   )
 }
 
-function markDone ({ tasks}) {
+function markDone (tasks) {
   if (tasks) {
     tasks.forEach(function (task) {
       todoList[task].done = true
@@ -68,7 +68,7 @@ function markDone ({ tasks}) {
 }
 
 module.exports = {
-  list,
-  add,
-  markDone
+  list: list,
+  add: add,
+  markDone: markDone
 }

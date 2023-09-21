@@ -1,13 +1,15 @@
-const { expect } = require('chai')
-const { it } = require('mocha')
-const childProcess = require('child_process')
+var expect = require('chai').expect
+var it = require('mocha').it
+var childProcess = require('child_process')
+
 // helper method to run command in shell
-const exec = function (command) {
+function exec (command) {
   return childProcess.execSync(command, { encoding: 'utf8' })
 }
-const run = function (args) {
+function run (args) {
   return exec('npx udc-js ' + args)
 }
+
 before(function () {
   exec('npm install -g')
   console.log('Installed CLI')
@@ -18,21 +20,21 @@ after(function () {
 })
 
 it('should print hello world', function () {
-  const output = run('hello')
+  var output = run('hello')
   expect(output).to.equal('Hello, World!\n')
 })
 
 it('should print a greeting', function () {
-  const output = run('hello Rahul')
+  var output = run('hello Rahul')
   expect(output).to.equal('Hello, Rahul!\n')
 })
 
 it('should perform the specified operation', function () {
-  const output = run('calc 3 4 -o multiply')
+  var output = run('calc 3 4 -o multiply')
   expect(output).to.equal('12\n')
 })
 
 it('should print the typical age for a given name', function () {
-  const output = run('age Rahul')
+  var output = run('age Rahul')
   expect(output).to.equal('Rahul - 40\n')
 })

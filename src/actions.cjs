@@ -7,7 +7,7 @@ function printName (name) {
 }
 // perform simple math operations
 function performOperation (num1, num2, options) {
-  let result
+  var result
   switch (options.operation) {
     case 'multiply':
       result = num1 * num2
@@ -37,7 +37,7 @@ function getAge (name) {
 }
 
 module.exports = {
-  printName,
-  performOperation,
-  getAge
+  printName: printName,
+  performOperation: performOperation,
+  getAge: getAge
 }
