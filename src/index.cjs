@@ -27,7 +27,7 @@ program
   .command('hello [name]')
   .description('Print hello world')
   .action(function (name) {
-    actions.printName(actions.name)
+    actions.printName(name)
   })
 
 program
