@@ -10,4 +10,5 @@ program
     .description('List all the TODO tasks')
     .action(list)
 
+// console.error('Arguments: ', process.argv)
 program.parse(process.argv)

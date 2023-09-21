@@ -5,11 +5,4 @@ function list() {
     console.log(chalk.red.bold('No tasks in your TODO list.'))
 }
 
-function add() {
-    console.log(chalk.greenBright('Task added to your TODO list.'))
-}
-
-module.exports = {
-    add,
-    list
-}
+module.exports = list
