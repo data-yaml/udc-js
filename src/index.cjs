@@ -31,12 +31,12 @@ program
   })
 
 program
-  .command('calc <num1> <num2>')
   .description('Perform some math operations')
-  .option('-o, --operation <operation>', 'The operation to perform')
-  .action(function (num1, num2, options) {
-    actions.performOperation(num1, num2, options)
-  })
+  .command("calc")
+  .option("-o, --operation <operation>", "Operation to perform: add | multiply | divide")
+  .argument("<num1>")
+  .argument("<num2>")
+  .action(actions.performOperation);
 
 program
   .command('age <name>')

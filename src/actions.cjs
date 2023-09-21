@@ -6,7 +6,9 @@ function printName (name) {
   console.log(chalk.bgCyanBright.blue('Hello, ' + (name || 'World') + '!'))
 }
 // perform simple math operations
-function performOperation (num1, num2, options) {
+function performOperation(num1, num2, options) {
+  console.debug(`num1: ${num1}, num2: ${num2}, options: ${JSON.stringify(options)}`)
+
   var result
   switch (options.operation) {
     case 'multiply':
@@ -19,7 +21,7 @@ function performOperation (num1, num2, options) {
       result = num1 / num2
       break
     default:
-      console.error(('Invalid operation'))
+      console.error(`Unknown options: ${options.operation}`)
       process.exit(1)
   }
   console.log(chalk.red(result))
