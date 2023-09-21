@@ -2,8 +2,12 @@
   "name": "udc-js",
   "version": "1.0.0",
   "description": "Pure JavaScript Universal Data Client (for node and other languages)",
-  "main": "src/index.js",
+  "main": "./src/index.cjs",
+  "bin": {
+    "todos": "./src/index.cjs"
+  },
   "scripts": {
+    "start": "node src/index.cjs",
     "test": "mocha"
   },
   "repository": {
@@ -22,7 +26,7 @@
   },
   "homepage": "https://github.com/data-yaml/udc-js#readme",
   "dependencies": {
-    "chalk": "^5.3.0",
+    "chalk": "^4.1.0",
     "commander": "^11.0.0",
     "conf": "^11.0.2"
   }
