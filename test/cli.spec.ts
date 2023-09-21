@@ -8,18 +8,8 @@ const exec = (command: string) => {
 };
 
 const run = (args: string) => {
-    return exec(`npx udc-node ${args}`);
+    return exec(`npx node dist/src/index.js ${args}`);
 };
-
-before(() => {
-    exec(`npm install -g`);
-    console.log("Installed CLI");
-});
-
-after(() => {
-    exec(`npm uninstall -g`);
-    console.log("Uninstalled CLI");
-});
 
 test("should print hello world", () => {
     const output = run(`hello`);
