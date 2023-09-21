@@ -1,5 +1,4 @@
-#! /usr/bin/env node
-
+#! /usr/bin/env node\
 // Adapted from https://blog.logrocket.com/creating-a-cli-tool-with-node-js/
 
 const { program } = require('commander')
