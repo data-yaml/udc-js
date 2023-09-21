@@ -2,10 +2,13 @@
     "env": {
         "browser": true,
         "commonjs": true,
-        "es5": true
+        "es6": false
     },
-    "extends": "standard",
-    "parserOptions": {
+    "extends": [
+        "standard",
+        "plugin:es5/no-es2015"
+    ],
+     "parserOptions": {
         "ecmaVersion": "latest"
     },
     "plugins": [
