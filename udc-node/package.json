@@ -5,13 +5,14 @@
   "exports": "./index.js",
   "scripts": {
     "build": "npx tsc",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist", 
     "test": "npm run build && mocha --require ts-node/register test/**/*.*ts",
     "start": "npm run build && node dist/src/index.js",
     "test-log": "NODE_DEBUG=* npm test",
-    "age": "npx ts-node dist/src/index.js age",
-    "calc": "npx ts-node dist/src/index.js calc -o",
-    "hello": "npx ts-node dist/src/index.js hello",
+    "local": "npx node dist/src/index.js",
+    "age": "npx node dist/src/index.js age",
+    "calc": "npx node dist/src/index.js calc -o",
+    "hello": "npx node dist/src/index.js hello",
     "udc-node-install": "npm run build && npm install -g",
     "udc-node-uninstall": "npm uninstall -g udc-node",
     "udc-node-check": "npx udc-node hello UDC"
