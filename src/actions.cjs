@@ -29,12 +29,17 @@ function performOperation(num1, num2, options) {
 
 // call external REST API
 function getAge (name) {
-  /*
-    response = yield axios.get(`https://api.agify.io/?name=${name}`);
-    data = yield response.data;
-    console.log(`${chalk.yellow(data["name"])} - ${chalk.yellowBright(data["age"])}`);
-    */
-  console.log('Rahul - 40')
+  var URI = `https://api.agify.io/?name=${name}`
+  https.get(URI, (resp) => {
+    let data = ''
+    resp.on('data', (chunk) => { data += chunk })
+    resp.on('end', () => {
+      var result = JSON.parse(data)
+      console.log(`${result.name} - ${result.age}`)
+    })
+  }).on('error', (err) => {
+    console.error(`Error: ${err.message}`)
+  })
 }
 
 module.exports = {
