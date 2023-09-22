@@ -1,5 +1,5 @@
 var chalk = require('chalk')
-var axios = require('axios')
+var https = require("node:https");
 
 // print a greeting on the console
 function printName (name) {

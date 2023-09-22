@@ -7,17 +7,8 @@ function exec (command) {
   return childProcess.execSync(command, { encoding: 'utf8' })
 }
 function run (args) {
-  return exec('npx udc-js ' + args)
+  return exec('node src/index.cjs ' + args)
 }
-
-before(function () {
-  exec('npm install -g')
-  console.log('Installed CLI')
-})
-after(function () {
-  exec('npm uninstall -g')
-  console.log('Uninstalled CLI')
-})
 
 it('should print hello world', function () {
   var output = run('hello')
