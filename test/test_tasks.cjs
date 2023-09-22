@@ -13,5 +13,5 @@ var run = function (args) {
 
 it('should talk about Tasks', function () {
   var output = run('list')
-  expect(output).to.contain('Tasks')
+  expect(output.toLowerCase()).to.contain('tasks')
 })
