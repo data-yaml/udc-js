@@ -26,8 +26,28 @@ function performOperation(num1, num2, options) {
   return result
 }
 
-// call external REST API
+// mock external REST API
 function getAge (name) {
-  var URI = 'https://api.agify.io/?name='+name
-  return  'Rahul - 40'
+  return name + ' - 40'
 }
+
+function getURI (name) {
+  return 'https://api.agify.io/?name=' + name
+}
+
+// call external REST API
+function callAge (name) {
+  var URI = getURI(name)
+  console.log('URI: ' + URI + '-> axios: ' + axios)
+  if (axios === undefined) {
+    axios = require('axios');
+  }
+  axios.get(URI)
+    .then(function (response) {
+      return (response.data);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
+
