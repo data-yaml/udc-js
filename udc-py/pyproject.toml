@@ -12,6 +12,7 @@ py-agify = "^0.0.1"
 pytest = "^7.4.2"
 black = "^23.9.1"
 requests = "^2.31.0"
+js2py = "^0.74"
 
 
 [build-system]

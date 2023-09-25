@@ -1,0 +1,69 @@
+_yaml:
+  _app: data-yaml
+  _app_version: 1.0
+  _doc: dude.benchling.packager
+  _doc_version: 1.0
+config:
+  _org: my-company
+  dns:
+    _format: dns
+    benchling: my-test-tenant.benchling.com
+    quilt_catalog: quilt-catalog.my-company.com
+  aws:
+    account_id: 123456789012
+    region: us-east-1
+    profile: default
+    destination_bucket: benchling-integration-packages
+  name:
+    package_prefix: benchling
+    stack: benchling_packager
+    event_bus: my-test-integration-bus
+vars:
+  tenant:
+    $ref: "#/config/dns/benchling"
+    $split:
+      - "."
+      - 0
+com.benchling:
+  dude:
+    event_subscription:
+      _order: 1
+      tenant:
+        $ref: "#/config/vars/tenant"
+      aws_account_id:
+        $ref: "#/config/aws/account_id"
+      aws_region:
+        $ref: "#/config/aws/region"
+      event_bus_name:
+        $ref: "#/config/name/event_bus"
+      event_types:
+        - v2.entry.created
+        - v2.entry.updated.fields
+    app.create:
+      _order: 3
+      name: $ref: "#/config/name/stack"
+      lifecycle_management: manual
+    app.secret:
+      _order: 4
+      _out:
+        - client_id
+        - client_secret
+com.amazon.aws:
+  dude:
+    event_bus:
+      _order: 2
+      event_source:
+        - aws.partner
+        - benchling.com
+        - $ref: "#/vars/tenant"
+        - $ref: "#/config/name/event_bus"
+    cloud_formation:
+      _order: 5
+      stack_name: $ref: "#/config/name/stack"
+      parameters:
+        event_bus_name: $ref: "#/config/name/event_bus"
+        client_id: $ref: "#/com.benchling/dude/app.secret/_out/client_id"
+        tenant: $ref: "#/vars/tenant"
+        bucket: $ref: "#/config/aws/destination_bucket"
+        package_name_prefix: $ref: "#/config/name/package_prefix"
+        quilt_catalog: $ref: "#/config/dns/quilt_catalog"

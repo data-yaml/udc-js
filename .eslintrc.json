@@ -1,0 +1,18 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": false
+    },
+    "extends": [
+        "plugin:es5/no-es2015"
+    ],
+     "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "plugins": [
+        "es5"
+    ],
+    "rules": {
+    }
+}

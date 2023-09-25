@@ -1,74 +1,49 @@
-const chalk = require('chalk')
-const Conf = require('conf')
-const config = new Conf({
-    projectName: 'udc-js',
-    accessPropertiesByDotNotation: false
-});
-var todoList = config.get('todo-list')
+var chalk = require('chalk')
+var https = require("node:https");
 
-function list() {
-    if (todoList && todoList.length) {
-        console.log(
-            chalk.blue.bold('Tasks in green are done. Tasks in yellow are pending.')
-        )
-        todoList.forEach((task, index) => {
-            if (task.done) {
-                console.log(
-                    chalk.greenBright(`${index}. ${task.text}`)
-                )
-            } else {
-                console.log(
-                    chalk.yellowBright(`${index}. ${task.text}`)
-                )
-            }
-        })
-    } else {
-        console.log(
-            chalk.red.bold('You don\'t have any tasks yet.')
-        )
-    }
+// print a greeting on the console
+function printName (name) {
+  console.log(chalk.bgCyanBright.blue('Hello, ' + (name || 'World') + '!'))
+}
+// perform simple math operations
+function performOperation(num1, num2, options) {
+  //console.debug(`num1: ${num1}, num2: ${num2}, options: ${JSON.stringify(options)}`)
+
+  var result
+  switch (options.operation) {
+    case 'multiply':
+      result = num1 * num2
+      break
+    case 'add':
+      result = num1 + num2
+      break
+    case 'divide':
+      result = num1 / num2
+      break
+    default:
+      console.error('Unknown options: '+options.operation)
+      process.exit(1)
+  }
+  console.log(chalk.red(result))
 }
 
-function add(task) {
-    //get the current todo-list
-    if (!todoList) {
-        //default value for todos-list
-        todoList = []
-    }
-
-    //push the new task to the todos-list
-    todoList.push({
-        text: task,
-        done: false
+// call external REST API
+function getAge (name) {
+  var URI = 'https://api.agify.io/?name='+name
+  https.get(URI, function(resp){
+    var data = ''
+    resp.on('data', function(chunk){ data += chunk })
+    resp.on('end', function(){
+      var result = JSON.parse(data)
+      console.log(''+result.name+' - '+result.age)
     })
-
-    //set todos-list in conf
-    config.set('todo-list', todoList)
-
-    //display message to user
-    console.log(
-        chalk.green.bold('Task has been added successfully: ' + task)
-    )
+  }).on('error', function(err){
+    console.error('Error: '+err.message)
+  })
 }
-
-function markDone({tasks}) {
-    if (tasks) {
-        tasks.forEach((task) => {
-            todoList[task].done = true
-        })
-    } else {
-        todoList.forEach((task) => {
-            task.done = true
-        })
-    }
-    config.set('todo-list', todoList)
-    console.log(
-        chalk.green.bold(`Task(s) [${tasks}] marked done successfully.`)
-    )
-}  
 
 module.exports = {
-    list,
-    add,
-    markDone
+  printName: printName,
+  performOperation: performOperation,
+  getAge: getAge
 }
