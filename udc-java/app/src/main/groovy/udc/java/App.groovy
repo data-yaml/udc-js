@@ -3,14 +3,15 @@
  */
 package udc.java
 
+import groovy.transform.CompileDynamic;
+
+@CompileDynamic
 class App {
-    String getGreeting() {
-        return 'Hello World!'
-    }
+    public final String greeting = 'Hello App World!'
 
     static void main(String[] args) {
         println new App().greeting
         Rhino().main(args)
-
     }
+
 }

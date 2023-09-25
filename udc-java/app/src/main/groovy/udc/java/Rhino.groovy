@@ -2,19 +2,33 @@
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
+import groovy.transform.CompileDynamic;
 
-public class Rhino {
-    public static void main(String[] args) {
-        Context cx = Context.enter();
-        try {
-            Scriptable scope = cx.initStandardObjects();
-            String greet = "print('Hello, scripting!')";
-            String add = "2 + 2;"
-            //cx.evaluateString(scope, greet, "<cmd>", 1, null);
-            String result = cx.evaluateString(scope, add, "<cmd>", 1, null);
-            System.out.println(result);
-        } finally {
-            Context.exit();
-        }
+@CompileDynamic
+class Rhino {
+
+    public static String run(String script) {
+        Rhino rhino = new Rhino();
+        return rhino.execute(script);
     }
+
+    private final Context cx;
+    private final Scriptable scope;
+
+    public Rhino() {
+        this.cx = Context.enter();
+        this.scope = cx.initStandardObjects();
+    }
+
+    public String execute(String script) {
+        String result = cx.evaluateString(scope, script, "<cmd>", 1, null);
+        return String.valueOf(result);
+    }
+
+    // call exist when deallocated
+    protected void finalize() throws Throwable {
+        Context.exit();
+        super.finalize();
+    }
+
 }

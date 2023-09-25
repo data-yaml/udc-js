@@ -6,7 +6,7 @@ package udc.java
 import spock.lang.Specification
 
 class AppTest extends Specification {
-    def "application has a greeting"() {
+    void "test application has a greeting"() {
         setup:
         def app = new App()
 

@@ -9,11 +9,11 @@ config:
   benchling_tenant:
     _type: string.dot-separated
     _value: my-test-tenant.benchling.com
-  quilt_catalog: 
+  quilt_catalog:
     _type: string.dot-separated
     _value: quilt-catalog.my-company.com
   aws:
-    account_id: ************
+    account_id: "************"
     region: us-east-1
     profile: default
     destination_bucket: benchling-integration-packages
@@ -32,9 +32,7 @@ vars:
       - "_"
       - $ref" "#/config/org"
       - $ref: "#/config/name/stack"
-
 steps:
-
   - action: event_subscription
     domain: com.benchling
     params:
@@ -51,61 +49,55 @@ steps:
         - v2.entry.updated.fields
     result:
       - partner_event_source
-
   - action: create_event_bus
     domain: com.amazon.aws
     params:
     - $ref: "$/steps/0/partner_event_source"
-
   - action: create_app
     domain: com.benchling
     params:
-      name: 
+      name:
         $ref: "#/config/name/stack"
       lifecycle_management: manual
-
   - action: create_app_secret
     domain: com.benchling
     result:
       - client_id
       - client_secret
-
   - action: create_cloud_formation_stack
     domain: com.amazon.aws
     params:
-      stack_name: 
+      stack_name:
         $ref: "#/vars/stack-name"
       parameters:
-        event_bus_name: 
+        event_bus_name:
           $ref: "$/steps/event_subscription/partner_event_source"
-        client_id: 
+        client_id:
           $ref: "$/steps/create_app_secret/client_id"
-        tenant: 
+        tenant:
           $ref: "#/vars/tenant"
-        bucket: 
+        bucket:
           $ref: "#/config/aws/destination_bucket"
-        package_name_prefix: 
+        package_name_prefix:
           $ref: "#/config/name/package_prefix"
-        quilt_catalog: 
+        quilt_catalog:
           $ref: "#/config/quilt_catalog"
       result:
-      stack_arn: cloud_formation_stack_arn
-      secret_field: benchling_client_secret_id
-
+        stack_arn: cloud_formation_stack_arn
+        secret_field_id: benchling_client_secret_id
   - action: set_cloud_formation_secret
     domain: com.amazon.aws
     params:
-      stack_name: 
+      stack_name:
         $ref: "#/vars/stack-name"
-      secret_id: 
-        $ref: "$/steps/create_cloud_formation_stack/secret_field"
-      secret_value: 
+      secret_id:
+        $ref: "$/steps/create_cloud_formation_stack/secret_field_id"
+      secret_value:
         $ref: "$/steps/create_app_secret/client_secret"
-
   - action: create_entry_schema
     domain: com.benchling
     params:
-      tenant: 
+      tenant:
         $ref: "#/vars/tenant"
       schema:
         name:
