@@ -1,15 +1,17 @@
 ---
 _yaml:
-  _app: data-yaml
+  _app: dude-kit
   _app_version: 1.0
-  _doc: dude.benchling.packager
+  _doc: benchling-packager
   _doc_version: 1.0
 config:
-  _org: my-company
-  dns:
-    _format: dns
-    benchling: my-test-tenant.benchling.com
-    quilt_catalog: quilt-catalog.my-company.com
+  org: my-company
+  benchling_tenant:
+    _type: string.dot-separated
+    _value: my-test-tenant.benchling.com
+  quilt_catalog: 
+    _type: string.dot-separated
+    _value: quilt-catalog.my-company.com
   aws:
     account_id: ************
     region: us-east-1
@@ -21,14 +23,21 @@ config:
     event_bus: my-test-integration-bus
 vars:
   tenant:
-    $ref: "#/config/dns/benchling"
     $split:
+      - $ref: "#/config/benchling_tenant"
       - "."
       - 0
-com.benchling:
-  dude:
-    event_subscription:
-      _order: 1
+  stack-name:
+    $join:
+      - "_"
+      - $ref" "#/config/org"
+      - $ref: "#/config/name/stack"
+
+steps:
+
+  - action: event_subscription
+    domain: com.benchling
+    params:
       tenant:
         $ref: "#/config/vars/tenant"
       aws_account_id:
@@ -40,32 +49,69 @@ com.benchling:
       event_types:
         - v2.entry.created
         - v2.entry.updated.fields
-    app.create:
-      _order: 3
+    result:
+      - partner_event_source
+
+  - action: create_event_bus
+    domain: com.amazon.aws
+    params:
+    - $ref: "$/steps/0/partner_event_source"
+
+  - action: create_app
+    domain: com.benchling
+    params:
       name: 
         $ref: "#/config/name/stack"
       lifecycle_management: manual
-    app.secret:
-      _order: 4
-      _out:
-        - client_id
-        - client_secret
-com.amazon.aws:
-  dude:
-    event_bus:
-      _order: 2
-      event_source:
-        - aws.partner
-        - benchling.com
-        - $ref: "#/vars/tenant"
-        - $ref: "#/config/name/event_bus"
-    cloud_formation:
-      _order: 5
-      stack_name: $ref: "#/config/name/stack"
+
+  - action: create_app_secret
+    domain: com.benchling
+    result:
+      - client_id
+      - client_secret
+
+  - action: create_cloud_formation_stack
+    domain: com.amazon.aws
+    params:
+      stack_name: 
+        $ref: "#/vars/stack-name"
       parameters:
-        event_bus_name: $ref: "#/config/name/event_bus"
-        client_id: $ref: "#/com.benchling/dude/app.secret/_out/client_id"
-        tenant: $ref: "#/vars/tenant"
-        bucket: $ref: "#/config/aws/destination_bucket"
-        package_name_prefix: $ref: "#/config/name/package_prefix"
-        quilt_catalog: $ref: "#/config/dns/quilt_catalog"
+        event_bus_name: 
+          $ref: "$/steps/event_subscription/partner_event_source"
+        client_id: 
+          $ref: "$/steps/create_app_secret/client_id"
+        tenant: 
+          $ref: "#/vars/tenant"
+        bucket: 
+          $ref: "#/config/aws/destination_bucket"
+        package_name_prefix: 
+          $ref: "#/config/name/package_prefix"
+        quilt_catalog: 
+          $ref: "#/config/quilt_catalog"
+      result:
+      stack_arn: cloud_formation_stack_arn
+      secret_field: benchling_client_secret_id
+
+  - action: set_cloud_formation_secret
+    domain: com.amazon.aws
+    params:
+      stack_name: 
+        $ref: "#/vars/stack-name"
+      secret_id: 
+        $ref: "$/steps/create_cloud_formation_stack/secret_field"
+      secret_value: 
+        $ref: "$/steps/create_app_secret/client_secret"
+
+  - action: create_entry_schema
+    domain: com.benchling
+    params:
+      tenant: 
+        $ref: "#/vars/tenant"
+      schema:
+        name:
+          $ref: "#/config/name/stack"
+        fields:
+          Quilt+ URI: Text
+          Quilt Revise URL: Text
+          Quilt Catalog URL: Text
+          Sentinel: Integer
