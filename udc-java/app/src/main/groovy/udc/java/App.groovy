@@ -10,5 +10,7 @@ class App {
 
     static void main(String[] args) {
         println new App().greeting
+        Rhino().main(args)
+
     }
 }
