@@ -22,6 +22,10 @@ dependencies {
     // Use the latest Groovy version for building this library
     implementation 'org.codehaus.groovy:groovy-all:3.0.18'
 
+    // Embed JavaScript via Rhino
+    implementation 'org.mozilla:rhino:1.7.14'
+
+
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:32.1.1-jre'
 
