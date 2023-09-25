@@ -18,7 +18,7 @@ jobs:
       pull-requests: write
 
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         java_version: [11, 17, 19]
@@ -44,7 +44,7 @@ jobs:
       uses: gradle/gradle-build-action@v2
 
     - name: Run Gradle Tests
-      run: make test
+      run: ./gradlew build test --no-daemon --console=plain --stacktrace --info --warning-mode=all
       working-directory: ./udc-java
 
     - name: Archive production artifacts
