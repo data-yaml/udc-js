@@ -19,7 +19,7 @@ import groovy.transform.CompileDynamic;
 public class RhinoRuntime extends ScriptableObject {
 
     private static final long serialVersionUID = 1L;
-    private static Logger logger = Logger.getLogger(RhinoRuntime.class);
+    private static Logger logger = Logger.getLogger(RhinoRuntime.class.getName());
     private static final boolean silent = false;
 
     @Override

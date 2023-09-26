@@ -24,28 +24,29 @@ import java.nio.file.Path;
 // import FileReader
 import java.io.FileReader;
 
+
 import spock.lang.Specification
 
 public class RhinoTest extends Specification {
 
-    public void simpleRhinoTest() throws FileNotFoundException, IOException {
-    Context cx = Context.enter();
+    void "test Rhino loads requireJS"() {
+      given:
+      Context cx = Context.enter();
+      final RhinoRuntime browserSupport = new RhinoRuntime();
+      final ScriptableObject sharedScope = cx.initStandardObjects(browserSupport, true);
 
-    final RhinoRuntime browserSupport = new RhinoRuntime();
+      String[] names = [ "print", "load"];
+      sharedScope.defineFunctionProperties(names, sharedScope.getClass(), ScriptableObject.DONTENUM);
 
-    final ScriptableObject sharedScope = cx.initStandardObjects(browserSupport, true);
+      Scriptable argsObj = cx.newArray(sharedScope, new Object[] {});
+      sharedScope.defineProperty("arguments", argsObj, ScriptableObject.DONTENUM);
 
-    String[] names = [ "print", "load"];
-    sharedScope.defineFunctionProperties(names, sharedScope.getClass(), ScriptableObject.DONTENUM);
+      expect:
+      cx.evaluateReader(sharedScope, new FileReader("./r.js"), "require", 1, null);
+      cx.evaluateReader(sharedScope, new FileReader("./loader.js"), "loader", 1, null);
 
-    Scriptable argsObj = cx.newArray(sharedScope, new Object[] {});
-    sharedScope.defineProperty("arguments", argsObj, ScriptableObject.DONTENUM);
-
-    cx.evaluateReader(sharedScope, new FileReader("./r.js"), "require", 1, null);
-    cx.evaluateReader(sharedScope, new FileReader("./loader.js"), "loader", 1, null);
-
-    Context.exit();
-
+      cleanup:
+      Context.exit();
   }
 
 }
