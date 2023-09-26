@@ -1,7 +1,6 @@
 // Import and run a Rhino script to do "hello world" in Java.
 package udc.java
 
-im
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import groovy.transform.CompileDynamic;
@@ -17,7 +16,7 @@ class Rhino implements AutoCloseable {
     private final Context cx;
     private final Scriptable scope;
 
-    public Rhino() {
+    Rhino() {
         this.cx = Context.enter();
         this.scope = cx.initStandardObjects();
     }

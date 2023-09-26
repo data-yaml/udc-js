@@ -16,10 +16,10 @@ import java.nio.file.Path;
 import groovy.transform.CompileDynamic;
 
 @CompileDynamic
-public class RhinoRuntime extends ScriptableObject {
+public class RhinoRequire extends ScriptableObject {
 
     private static final long SerialVersionUID = 1L;
-    private static final Logger LOG = Logger.getLogger(RhinoRuntime.class.getName());
+    private static final Logger LOG = Logger.getLogger(RhinoRequire.class.getName());
     private static final boolean Silent = false;
 
     public static void print(Context cx, Scriptable thisObj, Object[] args,
@@ -32,11 +32,16 @@ public class RhinoRuntime extends ScriptableObject {
 
     public static void load(Context cx, Scriptable thisObj, Object[] args, Function _funObj) 
             throws FileNotFoundException, IOException {
-        RhinoRuntime shell = (RhinoRuntime) getTopLevelScope(thisObj);
+        RhinoRequire shell = (RhinoRequire) getTopLevelScope(thisObj);
         for (int i = 0; i < args.length; i++) {
             LOG.info("Loading file " + Context.toString(args[i]));
             shell.processSource(cx, Context.toString(args[i]));
         }
+    }
+
+    @Override
+    String getClassName() {
+        return "RhinoRequire";
     }
 
     private void processSource(Context cx, String filename)
