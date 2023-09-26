@@ -1,6 +1,6 @@
 package udc.java
 
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Logger;
@@ -18,28 +18,23 @@ import groovy.transform.CompileDynamic;
 @CompileDynamic
 public class RhinoRuntime extends ScriptableObject {
 
-    private static final long serialVersionUID = 1L;
-    private static Logger logger = Logger.getLogger(RhinoRuntime.class.getName());
-    private static final boolean silent = false;
-
-    @Override
-    public String getClassName() {
-        return "test";
-    }
+    private static final long SerialVersionUID = 1L;
+    private static final Logger LOG = Logger.getLogger(RhinoRuntime.class.getName());
+    private static final boolean Silent = false;
 
     public static void print(Context cx, Scriptable thisObj, Object[] args,
             Function funObj) {
-      if (silent)
+      if (Silent)
         return;
         for (int i = 0; i < args.length; i++)
-          logger.info(Context.toString(args[i]));
+          LOG.info(Context.toString(args[i]));
     }
 
-    public static void load(Context cx, Scriptable thisObj, Object[] args, Function funObj) 
+    public static void load(Context cx, Scriptable thisObj, Object[] args, Function _funObj) 
             throws FileNotFoundException, IOException {
         RhinoRuntime shell = (RhinoRuntime) getTopLevelScope(thisObj);
         for (int i = 0; i < args.length; i++) {
-            logger.info("Loading file " + Context.toString(args[i]));
+            LOG.info("Loading file " + Context.toString(args[i]));
             shell.processSource(cx, Context.toString(args[i]));
         }
     }
