@@ -25,6 +25,9 @@ dependencies {
     // Embed JavaScript via Rhino
     implementation 'org.mozilla:rhino:1.7.14'
 
+    // Use RequireJS from Rhino
+    implementation 'com.github.bringking:requirejs-maven-plugin:2.0.4'
+
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:32.1.1-jre'

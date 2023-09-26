@@ -1,4 +1,5 @@
 // Import and run a Rhino script to do "hello world" in Java.
+package udc.java
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
