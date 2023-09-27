@@ -38,18 +38,30 @@ public class RhinoRuntime extends ScriptableObject {
         }
     }
 
+    static InputStream getInputStream(String file) throws IOException {
+        Path path = Paths.get(file)
+        return Files.newInputStream(path)
+    }
+    static ClassLoader getLoader() {
+        return RhinoRuntime.class.getClassLoader()
+    }
+
+    static InputStream getResourceStream(String filename) throws IOException {
+        InputStream inputStream = getLoader().getResourceAsStream(filename)
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + filename);
+        }
+        return inputStream
+    }
+
     @Override
     String getClassName() {
         return 'RhinoRuntime'
     }
 
-    def processSource(Context cx, String filename) throws FileNotFoundException, IOException {
-        return cx.evaluateReader(this, new InputStreamReader(getInputStream(filename)), filename, 1, null)
-    }
-
-    InputStream getInputStream(String file) throws IOException {
-        Path path = Paths.get(file)
-        return Files.newInputStream(path)
+    def processSource(Context cx, String filename, String key) throws FileNotFoundException, IOException {
+        InputStream inputStream = RhinoRuntime.getResourceStream(filename)
+        return cx.evaluateReader(this, new InputStreamReader(inputStream), key, 1, null)
     }
 
 }
