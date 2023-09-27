@@ -1,6 +1,5 @@
 package udc.java
 
-import java.io.IOException
 import java.util.logging.Logger
 
 import org.mozilla.javascript.Context
@@ -16,20 +15,19 @@ import groovy.transform.CompileDynamic
 @CompileDynamic
 public class RhinoRequire extends ScriptableObject {
 
-    private static final long SerialVersionUID = 1L
     private static final Logger LOG = Logger.getLogger(RhinoRequire.getName())
-    private static final boolean Silent = false
+    private static final boolean SILENT = false
 
-    public static void print(Context cx, Scriptable thisObj, Object[] args,
-            Function funObj) {
-        if (Silent) {
+    static void print(Context cx, Scriptable thisObj, Object[] args, Function funObj) {
+        if (SILENT) {
             return
         }
-        for (int i = 0; i < args.length; i++)
-          LOG.info(Context.toString(args[i]))
-            }
+        for (int i = 0; i < args.length; i++) {
+            LOG.info(Context.toString(args[i]))
+        }
+    }
 
-    public static void load(Context cx, Scriptable thisObj, Object[] args, Function _funObj)
+    static void load(Context cx, Scriptable thisObj, Object[] args, Function funObj)
             throws FileNotFoundException, IOException {
         RhinoRequire shell = (RhinoRequire) getTopLevelScope(thisObj)
         for (int i = 0; i < args.length; i++) {
