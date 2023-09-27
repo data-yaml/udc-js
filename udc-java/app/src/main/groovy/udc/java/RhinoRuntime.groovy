@@ -59,9 +59,17 @@ public class RhinoRuntime extends ScriptableObject {
         return 'RhinoRuntime'
     }
 
-    def processSource(Context cx, String filename, String key) throws FileNotFoundException, IOException {
+    void processSourceNamed(Context cx, String filename, String key) throws FileNotFoundException, IOException {
         InputStream inputStream = RhinoRuntime.getResourceStream(filename)
-        return cx.evaluateReader(this, new InputStreamReader(inputStream), key, 1, null)
+        if (key == null) {
+            key = filename
+        }
+        cx.evaluateReader(this, new InputStreamReader(inputStream), key, 1, null)
     }
+
+    void processSource(Context cx, String filename) throws FileNotFoundException, IOException {
+        processSourceNamed(cx, filename, filename)
+    }
+
 
 }

@@ -38,8 +38,8 @@ class Rhino implements AutoCloseable {
         return String.valueOf(result)
     }
 
-    String readFile(String file, String name) {
-        return cx.evaluateReader(scope, new FileReader(file), name, 1, null)
+    void processSource(String source, String name) {
+        runtime.processSourceNamed(cx, source, name)
     }
 
     // call exit on close to release resources associated with Context
