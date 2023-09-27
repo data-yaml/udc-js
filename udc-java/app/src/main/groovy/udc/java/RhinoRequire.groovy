@@ -31,20 +31,21 @@ public class RhinoRequire extends ScriptableObject {
             throws FileNotFoundException, IOException {
         RhinoRequire shell = (RhinoRequire) getTopLevelScope(thisObj)
         for (int i = 0; i < args.length; i++) {
-            LOG.info('Loading file ' + Context.toString(args[i]))
+            if (!SILENT) {
+                LOG.info("Loading file " + Context.toString(args[i]))
+            }
             shell.processSource(cx, Context.toString(args[i]))
         }
-            }
+    }
 
     @Override
     String getClassName() {
         return 'RhinoRequire'
     }
 
-    void processSource(Context cx, String filename)
-            throws FileNotFoundException, IOException {
-        cx.evaluateReader(this, new InputStreamReader(getInputStream(filename)), filename, 1, null)
-            }
+    def processSource(Context cx, String filename) throws FileNotFoundException, IOException {
+        return cx.evaluateReader(this, new InputStreamReader(getInputStream(filename)), filename, 1, null)
+    }
 
     InputStream getInputStream(String file) throws IOException {
         Path path = Paths.get(file)
