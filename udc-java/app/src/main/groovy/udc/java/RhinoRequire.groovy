@@ -1,6 +1,7 @@
 package udc.java
 
 import java.io.IOException
+import java.util.logging.Logger
 
 import org.mozilla.javascript.Context
 import org.mozilla.javascript.Function
