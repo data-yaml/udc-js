@@ -64,7 +64,7 @@ public class RequireTest extends Specification {
         RhinoRuntime runtime = new RhinoRuntime()
         Rhino rhino = new Rhino()
         rhino.processSource('r.js', 'require')
-        //rhino.processSource('loader_test.js', 'loader')
+        rhino.processSource('loader_test.js', 'loader')
 
       then:
         runtime != null
