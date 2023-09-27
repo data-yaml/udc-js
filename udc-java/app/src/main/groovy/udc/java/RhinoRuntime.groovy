@@ -13,9 +13,9 @@ import java.nio.file.Path
 import groovy.transform.CompileDynamic
 
 @CompileDynamic
-public class RhinoRequire extends ScriptableObject {
+public class RhinoRuntime extends ScriptableObject {
 
-    private static final Logger LOG = Logger.getLogger(RhinoRequire.getName())
+    private static final Logger LOG = Logger.getLogger(RhinoRuntime.getName())
     private static final boolean SILENT = false
 
     static void print(Context cx, Scriptable thisObj, Object[] args, Function funObj) {
@@ -29,7 +29,7 @@ public class RhinoRequire extends ScriptableObject {
 
     static void load(Context cx, Scriptable thisObj, Object[] args, Function funObj)
             throws FileNotFoundException, IOException {
-        RhinoRequire shell = (RhinoRequire) getTopLevelScope(thisObj)
+        RhinoRuntime shell = (RhinoRuntime) getTopLevelScope(thisObj)
         for (int i = 0; i < args.length; i++) {
             if (!SILENT) {
                 LOG.info("Loading file " + Context.toString(args[i]))
@@ -40,7 +40,7 @@ public class RhinoRequire extends ScriptableObject {
 
     @Override
     String getClassName() {
-        return 'RhinoRequire'
+        return 'RhinoRuntime'
     }
 
     def processSource(Context cx, String filename) throws FileNotFoundException, IOException {

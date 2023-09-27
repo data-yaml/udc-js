@@ -18,11 +18,11 @@ class Rhino implements AutoCloseable {
     private final Context cx
     private final ScriptableObject scope
     private final Scriptable args
-    private final RhinoRequire runtime
+    private final RhinoRuntime runtime
 
     Rhino() {
         this.cx = Context.enter()
-        this.runtime = new RhinoRequire()
+        this.runtime = new RhinoRuntime()
         this.scope = cx.initStandardObjects(runtime, true)
         scope.defineFunctionProperties(functions, scope.getClass(), ScriptableObject.DONTENUM)
         this.args = cx.newArray(scope, new Object[] {})
