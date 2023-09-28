@@ -13,7 +13,7 @@ class Rhino implements AutoCloseable {
         Rhino rhino = new Rhino()
         return rhino.execute(script)
     }
-    private static final String[] functions = [ 'print', 'load']
+    private static final String[] FUNCTION_NAMES = [ 'print', 'load']
 
     private final Context cx
     private final ScriptableObject scope
@@ -24,7 +24,7 @@ class Rhino implements AutoCloseable {
         this.cx = Context.enter()
         this.runtime = new RhinoRuntime()
         this.scope = cx.initStandardObjects(runtime, true)
-        scope.defineFunctionProperties(functions, scope.getClass(), ScriptableObject.DONTENUM)
+        scope.defineFunctionProperties(FUNCTION_NAMES, scope.getClass(), ScriptableObject.DONTENUM)
         this.args = cx.newArray(scope, new Object[] {})
         scope.defineProperty('arguments', args, ScriptableObject.DONTENUM)
     }

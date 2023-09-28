@@ -17,10 +17,10 @@ import groovy.transform.CompileDynamic
 public class RequireTest extends Specification {
 
     void 'test Rhino has sharedScope'() {
-      when:
+      given:
         final Rhino rhino = new Rhino()
 
-      then:
+      expect:
         rhino.getScope('print') instanceof Function
         rhino.getScope('load') instanceof Function
         rhino.getScope('arguments') instanceof Scriptable
@@ -37,18 +37,16 @@ public class RequireTest extends Specification {
         RhinoRuntime.class.getClassLoader() != null
         ClassLoader.getSystemClassLoader() != null
         RhinoRuntime.getLoader() != null
-        rhino.class.getClassLoader() != null 
-        rhino.class.getClassLoader() == RhinoRuntime.class.getClassLoader()    
+        rhino.getClassLoader() != null 
+        rhino.getClassLoader() == RhinoRuntime.class.getClassLoader()    
     }
 
     void 'test getResourceStream'() {
-      when:
-        Rhino rhino = new Rhino()
+      given:
         InputStream requireStream = RhinoRuntime.getResourceStream('r.js')
         InputStream inputStream = RhinoRuntime.getResourceStream('loader_test.js')
-        RhinoRuntime runtime = new RhinoRuntime()
 
-      then:
+      expect:
         requireStream != null
         requireStream.available() > 0
         requireStream.close()
@@ -60,7 +58,6 @@ public class RequireTest extends Specification {
 
     void 'test processSource'() {
       when:
-        Context cx = Context.enter()
         RhinoRuntime runtime = new RhinoRuntime()
         Rhino rhino = new Rhino()
         rhino.processSource('r.js', 'require')
