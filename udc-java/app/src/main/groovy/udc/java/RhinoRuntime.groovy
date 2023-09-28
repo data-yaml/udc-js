@@ -32,24 +32,24 @@ public class RhinoRuntime extends ScriptableObject {
         RhinoRuntime shell = (RhinoRuntime) getTopLevelScope(thisObj)
         for (int i = 0; i < args.length; i++) {
             if (!SILENT) {
-                LOG.info("Loading file " + Context.toString(args[i]))
+                LOG.info('Loading file ' + Context.toString(args[i]))
             }
             shell.processSource(cx, Context.toString(args[i]))
         }
-    }
+            }
 
     static InputStream getInputStream(String file) throws IOException {
         Path path = Paths.get(file)
         return Files.newInputStream(path)
     }
     static ClassLoader getLoader() {
-        return RhinoRuntime.class.getClassLoader()
+        return RhinoRuntime.getClassLoader()
     }
 
     static InputStream getResourceStream(String filename) throws IOException {
         InputStream inputStream = getLoader().getResourceAsStream(filename)
         if (inputStream == null) {
-            throw new IllegalArgumentException("file not found! " + filename);
+            throw new IllegalArgumentException('file not found! ' + filename)
         }
         return inputStream
     }
@@ -68,6 +68,5 @@ public class RhinoRuntime extends ScriptableObject {
     void processSource(Context cx, String filename) throws FileNotFoundException, IOException {
         processSourceNamed(cx, filename, filename)
     }
-
 
 }

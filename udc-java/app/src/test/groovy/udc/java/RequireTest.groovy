@@ -34,7 +34,7 @@ public class RequireTest extends Specification {
         getClass() != null
         getClass().getClassLoader() != null
         Thread.currentThread().getContextClassLoader() != null
-        RhinoRuntime.class.getClassLoader() != null
+        RhinoRuntime.getClassLoader() != null
         ClassLoader.getSystemClassLoader() != null
         RhinoRuntime.getLoader() != null
         Rhino.getClassLoader() != null 

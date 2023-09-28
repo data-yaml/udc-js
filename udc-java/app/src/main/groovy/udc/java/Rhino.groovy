@@ -32,7 +32,7 @@ class Rhino implements AutoCloseable {
     def getScope(name) {
         return scope.get(name, scope)
     }
-    
+
     String execute(String script) {
         String result = cx.evaluateString(scope, script, '<cmd>', 1, null)
         return String.valueOf(result)
