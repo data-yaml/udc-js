@@ -37,8 +37,8 @@ public class RequireTest extends Specification {
         RhinoRuntime.class.getClassLoader() != null
         ClassLoader.getSystemClassLoader() != null
         RhinoRuntime.getLoader() != null
-        rhino.getClassLoader() != null 
-        rhino.getClassLoader() == RhinoRuntime.class.getClassLoader()    
+        Rhino.getClassLoader() != null 
+        Rhino.getClassLoader() == RhinoRuntime.class.getClassLoader()    
     }
 
     void 'test getResourceStream'() {
@@ -53,7 +53,6 @@ public class RequireTest extends Specification {
         inputStream != null
         inputStream.available() > 0
         inputStream.close()
-        //rhino.readSource('loader_test.js', 'loader')
     }
 
     void 'test processSource'() {
