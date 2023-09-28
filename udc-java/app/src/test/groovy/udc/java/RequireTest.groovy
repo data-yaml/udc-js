@@ -28,7 +28,7 @@ public class RequireTest extends Specification {
 
     void 'test classLoader'() {
       given:
-        Rhino rhino = new Rhino()
+        ClassLoader rhinoLoader = Rhino.getClassLoader()
 
       expect:
         getClass() != null
@@ -37,8 +37,8 @@ public class RequireTest extends Specification {
         RhinoRuntime.getClassLoader() != null
         ClassLoader.getSystemClassLoader() != null
         RhinoRuntime.getLoader() != null
-        Rhino.getClassLoader() != null 
-        Rhino.getClassLoader() == RhinoRuntime.class.getClassLoader()    
+        rhinoLoader != null 
+        rhinoLoader == RhinoRuntime.class.getClassLoader()    
     }
 
     void 'test getResourceStream'() {
