@@ -9,7 +9,7 @@ var exec = function (command) {
 }
 
 var run = function (args) {
-  var executablePath = path.join(__dirname, '../src', './index.cjs ')
+  var executablePath = path.join(__dirname, '../src', './index.cjs')
   return exec([executablePath, args].join(' '))
   // return exec('npx udc-js ' + args)
 }
