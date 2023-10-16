@@ -1,6 +1,7 @@
 var expect = require('chai').expect
 var it = require('mocha').it
 var childProcess = require('child_process')
+var path = require('path')
 
 // helper method to run command in shell
 var exec = function (command) {
@@ -8,7 +9,9 @@ var exec = function (command) {
 }
 
 var run = function (args) {
-  return exec('npx udc-js ' + args)
+  var executablePath = path.join(__dirname, '../src', './index.cjs ')
+  return exec([executablePath, args].join(' '))
+  // return exec('npx udc-js ' + args)
 }
 
 it('should talk about Tasks', function () {
