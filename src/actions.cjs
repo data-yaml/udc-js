@@ -9,17 +9,13 @@ function printName (name) {
 function performOperation(num1, num2, options) {
   //console.debug(`num1: ${num1}, num2: ${num2}, options: ${JSON.stringify(options)}`)
 
-  var result
   switch (options.operation) {
     case 'multiply':
-      result = num1 * num2
-      break
+      return num1 * num2
     case 'add':
-      result = num1 + num2
-      break
+      return num1 + num2
     case 'divide':
-      result = num1 / num2
-      break
+      return num1 / num2
     default:
       console.error('Unknown options: '+options.operation)
       process.exit(1)
