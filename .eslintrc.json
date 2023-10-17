@@ -2,7 +2,8 @@
     "env": {
         "browser": true,
         "commonjs": true,
-        "es6": false
+        "es6": false,
+        "node": true
     },
     "extends": [
         "plugin:es5/no-es2015"
